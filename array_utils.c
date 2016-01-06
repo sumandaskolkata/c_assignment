@@ -62,6 +62,17 @@ void* findFirst(Array_util util, matchFun* match, void* hint) {
 	return NULL;
 }
 
+void* findLast(Array_util util, matchFun* match, void* hint) {
+	void *ptr = util.base;
+	ptr = ptr+((util.length) * (util.typeSize));
+	for (int i = util.length-1; i >=0 ; i--) {
+		if(match(hint,ptr)){
+			return ptr;
+		}
+		ptr-=util.typeSize;
+	}
+	return NULL;
+}
 
 
 

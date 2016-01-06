@@ -14,3 +14,4 @@ int findIndex(Array_util,void *);
 void dispose(Array_util util);
 int isEven (void *hint,void *item);
 void* findFirst(Array_util util, matchFun* match, void* hint);
+void* findLast(Array_util util, matchFun* match, void* hint);

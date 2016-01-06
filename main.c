@@ -117,6 +117,22 @@ void test_findFirst_isDivisible(){
 	int *result1 = (int *)findFirst(util,&isDivisible,&nt);
 	assert(result1 == NULL);
 }
+
+void test_findLast_isEven() {
+	int * result;
+	Array_util util = create(4,8);
+	int *ptr =  (int *)util.base;
+	ptr[0]= 65;
+	ptr[1]= 66;
+	ptr[2]= 67;
+	ptr[3]= 68;
+	result = (int*)findLast(util,&isEven,NULL);
+	assert(*result == 68);
+	ptr[4]= 90;
+	result = findLast(util,&isEven,NULL);
+	assert(*result == 90);
+}
+
 int main(void){
 	Array_util util = create(4,6);
 	int *ptr =  (int *)util.base;
@@ -132,5 +148,6 @@ int main(void){
 	test_findFirst_isEven();
 	test_findFirst_isEven_if_no_element_is_there();
 	test_findFirst_isDivisible();
+	test_findLast_isEven();
 	return 0;
 }
