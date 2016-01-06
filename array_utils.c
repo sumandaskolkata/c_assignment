@@ -51,21 +51,16 @@ void dispose(Array_util util) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void* findFirst(Array_util util, matchFun* match, void* hint) {
+	void *ptr = util.base;
+	for (int i = 0; i < util.length; i++) {
+		if(match(hint,ptr)){
+			return ptr;
+		}
+		ptr+=util.typeSize;
+	}
+	return NULL;
+}
 
 
 
