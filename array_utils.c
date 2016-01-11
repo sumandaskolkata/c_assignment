@@ -74,6 +74,79 @@ void* findLast(Array_util util, matchFun* match, void* hint) {
 	return NULL;
 }
 
+int count(Array_util util, matchFun* match, void* hint) {
+	void *ptr = util.base;
+	int count = 0;
+	for (int i = 0; i < util.length; i++) {
+		if(match(hint,ptr)){
+			++count;
+		}
+		ptr = ptr + util.typeSize;
+	}
+	return count;
+}
+
+int filter(Array_util util, matchFun* match, void* hint, void** destination, int maxItems ) {
+	void *ptr = util.base;
+	int count = 0;
+	void **dest = destination;
+	for (int i = 0; i < util.length; i++) {
+		if(match(hint,ptr)){
+			*dest = ptr;
+			dest++;
+			++count;
+		}
+		ptr +=util.typeSize;
+	}
+	return count;
+}
+
+void _map(Array_util source, Array_util destination, ConvertFun* convert, void* hint) {
+	void * source_base = source.base;
+	void * destination_base = destination.base;
+	for (int i = 0; i < source.length; i++) {
+		convert(hint,source_base,destination_base);
+		source_base+=source.typeSize;
+		destination_base+=destination.typeSize;
+	}
+
+}
+
+void forEach(Array_util util, OperationFun* operation, void* hint) {
+	void *ptr = util.base;
+	for (int i = 0; i < util.length; i++)
+	{
+		operation(hint,ptr);
+		ptr+=util.typeSize;
+	}
+}
+
+void* reduce(Array_util util, ReducerFun* reducer, void* hint, void* intialValue) {
+	void *ptr = util.base;
+	void * previousValue = intialValue;
+	for (int i = 0; i < util.length;i++)
+	{
+		previousValue =  reducer(hint,previousValue,ptr);
+		ptr+=util.typeSize;
+	}
+	return previousValue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
